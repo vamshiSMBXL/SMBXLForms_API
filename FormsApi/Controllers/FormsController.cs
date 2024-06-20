@@ -5,6 +5,11 @@ using FormsApi.data;
 using FormsApi.Models;
 using FormsApi.Applications.Common.Models;
 using MediatR;
+using System.IO;
+using System;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
+using Microsoft.Data.SqlClient;
 
 namespace FormsApi.Controllers
 {
@@ -127,41 +132,7 @@ namespace FormsApi.Controllers
 
             return Ok(true);
         }
-        //[HttpPost("EducationDetails")]
-        //public async Task<ActionResult<bool>> AddEducationDetails(List<EducationDetailsModel> request, CancellationToken cancellationToken)
-        //{
-        //    EducationDetails data = new EducationDetails();
-        //    foreach(var item in request) 
-        //    {
-        //        data.Id = _seqIdGenerator.Id;
-        //        data.Degree = item.Degree;
-        //        data.Specialization = item.Specialization;
-        //        data.CollageOrUniversity = item.CollageOrUniversity;
-        //        data.YearOfPassing = item.YearOfPassing;
-        //        data.Percentage = item.Percentage;
 
-        //        _context.EducationDetails.Add(data);
-        //        _context.SaveChanges();
-        //    }
-
-        //    return Ok(true);
-        //}
-        //[HttpPost("FamilyDetails")]
-        //public async Task<ActionResult<bool>> AddFamilyDetails(FamilyDetailsModel request
-        //    , CancellationToken cancellationToken)
-        //{
-        //    FamilyDetails data = new FamilyDetails();
-        //    data.Id = _seqIdGenerator.Id;
-        //    data.Name = request.Name;
-        //    data.RelationShip = request.RelationShip;
-        //    data.DateOfBirth = request.DateOfBirth;
-        //    data.Occupation = request.Occupation;
-
-        //    _context.FamilyDetails.Add(data);
-        //    _context.SaveChanges();
-
-        //    return Ok(true);
-        //}
         [HttpPost("CandidateInfo")]
         public async Task<ActionResult<bool>> AddCandidateInfo(CandidateInfoModel request, CancellationToken cancellationToken)
         {
@@ -171,6 +142,7 @@ namespace FormsApi.Controllers
             data.ReferredBy = request.ReferredBy;
             data.PositionAppliedFor = request.PositionAppliedFor;
             data.Name = request.Name;
+            data.lastname = request.lastname;
             data.DateOfBirth = request.DateOfBirth;
             data.CompleteAddress = request.CompleteAddress;
             data.MobileNumber = request.MobileNumber;
@@ -181,6 +153,14 @@ namespace FormsApi.Controllers
             data.ExpectedCTC = request.ExpectedCTC;
             data.DeclarationDate = request.DeclarationDate;
             data.DeclarationSignature = request.DeclarationSignature;
+            data.Appoint = request.Appoint;
+            data.AddressLine1 = request.AddressLine1;
+            data.AddressLine2 = request.AddressLine2;
+            data.Pincode = request.Pincode;
+            data.City = request.City;
+            data.skills = request.skills;
+            data.github = request.github;
+            data.LinkedIn = request.LinkedIn;
 
             _context.CandidateInfo.Add(data);
             _context.SaveChanges();
@@ -195,6 +175,7 @@ namespace FormsApi.Controllers
                 educationDetails.YearOfPassing = item.YearOfPassing;
                 educationDetails.Percentage = item.Percentage;
                 educationDetails.Reference = data.ID;
+                educationDetails.CretedDate = DateTime.Now;
 
                 _context.EducationDetails.Add(educationDetails);
                 _context.SaveChanges();
@@ -208,6 +189,7 @@ namespace FormsApi.Controllers
                 familyDetails.Occupation = item.Occupation;
                 familyDetails.DateOfBirth = item.DateOfBirth;
                 familyDetails.Reference = data.ID;
+                familyDetails.CretedDate = DateTime.Now;
 
                 _context.FamilyDetails.Add(familyDetails);
                 _context.SaveChanges();
@@ -225,7 +207,7 @@ namespace FormsApi.Controllers
                 employmentDetails.AnnualCTC = item.AnnualCTC;
                 employmentDetails.ReasonForLeaving = item.ReasonForLeaving;
                 employmentDetails.Reference = data.ID;
-
+                employmentDetails.CretedDate = DateTime.Now;
                 _context.EmploymentDetails.Add(employmentDetails);
                 _context.SaveChanges();
             }
@@ -239,7 +221,7 @@ namespace FormsApi.Controllers
                 professionalRefernces.ContactNo = item.ContactNo;
                 professionalRefernces.EmailId = item.EmailId;
                 professionalRefernces.Reference = data.ID;
-
+                professionalRefernces.CretedDate = DateTime.Now;
                 _context.ProfessionalRefernces.Add(professionalRefernces);
                 _context.SaveChanges();
             }
@@ -264,17 +246,17 @@ namespace FormsApi.Controllers
             data.ProblemSolvingSkillsone = request.ProblemSolvingSkillsone.ToString();
             data.LeaderShipone = request.LeaderShipone.ToString();
             data.Innovativeone = request.Innovativeone.ToString();
-            data.CommunicationSkilltwo = request.CommunicationSkilltwo.ToString();
-            data.TechnicalKnowledgetwo = request.TechnicalKnowledgetwo.ToString();
-            data.SimilarIndustryExperiencetwo = request.SimilarIndustryExperiencetwo.ToString();
-            data.AlignmentWithOurBussinesstwo = request.AlignmentWithOurBussinesstwo.ToString();
-            data.Attitudetwo = request.Attitudetwo.ToString();
-            data.Presentabilitytwo = request.Presentabilitytwo.ToString();
-            data.TeamPlayertwo = request.TeamPlayertwo.ToString();
-            data.ProblemSolvingSkillstwo = request.ProblemSolvingSkillstwo.ToString();
-            data.LeaderShiptwo = request.LeaderShiptwo.ToString();
-            data.Innovativetwo = request.Innovativetwo.ToString();
-            data.OverallEvaluation = request.OverallEvaluation.ToString();
+            //data.CommunicationSkilltwo = request.CommunicationSkilltwo.ToString();
+            //data.TechnicalKnowledgetwo = request.TechnicalKnowledgetwo.ToString();
+            //data.SimilarIndustryExperiencetwo = request.SimilarIndustryExperiencetwo.ToString();
+            //data.AlignmentWithOurBussinesstwo = request.AlignmentWithOurBussinesstwo.ToString();
+            //data.Attitudetwo = request.Attitudetwo.ToString();
+            //data.Presentabilitytwo = request.Presentabilitytwo.ToString();
+            //data.TeamPlayertwo = request.TeamPlayertwo.ToString();
+            //data.ProblemSolvingSkillstwo = request.ProblemSolvingSkillstwo.ToString();
+            //data.LeaderShiptwo = request.LeaderShiptwo.ToString();
+            //data.Innovativetwo = request.Innovativetwo.ToString();
+            //data.OverallEvaluation = request.OverallEvaluation.ToString();
             data.AreaOfImprovement = request.AreaOfImprovement;
             data.feedbackObservation = request.feedbackObservation;
             data.Rating = request.Rating;
@@ -379,17 +361,17 @@ namespace FormsApi.Controllers
                 response.ProblemSolvingSkillsone = int.Parse(data.ProblemSolvingSkillsone);
                 response.LeaderShipone = int.Parse(data.LeaderShipone);
                 response.Innovativeone = int.Parse(data.Innovativeone);
-                response.CommunicationSkilltwo = int.Parse(data.CommunicationSkilltwo);
-                response.TechnicalKnowledgetwo = int.Parse(data.TechnicalKnowledgetwo);
-                response.SimilarIndustryExperiencetwo = int.Parse(data.SimilarIndustryExperiencetwo);
-                response.AlignmentWithOurBussinesstwo = int.Parse(data.AlignmentWithOurBussinesstwo);
-                response.Attitudetwo = int.Parse(data.Attitudetwo);
-                response.Presentabilitytwo = int.Parse(data.Presentabilitytwo);
-                response.TeamPlayertwo = int.Parse(data.TeamPlayertwo);
-                response.ProblemSolvingSkillstwo = int.Parse(data.ProblemSolvingSkillstwo);
-                response.LeaderShiptwo = int.Parse(data.LeaderShiptwo);
-                response.Innovativetwo = int.Parse(data.Innovativetwo);
-                response.OverallEvaluation = int.Parse(data.OverallEvaluation);
+                //response.CommunicationSkilltwo = int.Parse(data.CommunicationSkilltwo);
+                //response.TechnicalKnowledgetwo = int.Parse(data.TechnicalKnowledgetwo);
+                //response.SimilarIndustryExperiencetwo = int.Parse(data.SimilarIndustryExperiencetwo);
+                //response.AlignmentWithOurBussinesstwo = int.Parse(data.AlignmentWithOurBussinesstwo);
+                //response.Attitudetwo = int.Parse(data.Attitudetwo);
+                //response.Presentabilitytwo = int.Parse(data.Presentabilitytwo);
+                //response.TeamPlayertwo = int.Parse(data.TeamPlayertwo);
+                //response.ProblemSolvingSkillstwo = int.Parse(data.ProblemSolvingSkillstwo);
+                //response.LeaderShiptwo = int.Parse(data.LeaderShiptwo);
+                //response.Innovativetwo = int.Parse(data.Innovativetwo);
+                //response.OverallEvaluation = int.Parse(data.OverallEvaluation);
                 response.AreaOfImprovement = data.AreaOfImprovement;
                 response.feedbackObservation = data.feedbackObservation;
                 response.Rating = data.Rating;
@@ -459,6 +441,227 @@ namespace FormsApi.Controllers
                 return BadRequest(ex.ToString());   
             }
 
+        }
+
+        [HttpPost("SavePhoto")]
+        public IActionResult SavePhoto([FromForm] FileModel fileModel, [FromServices] IWebHostEnvironment env)
+        {
+            string folderPath = Path.Combine(env.ContentRootPath, "Photos");
+
+            try
+            {
+                // Ensure the directory exists
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                    Console.WriteLine("Directory created at: " + folderPath);
+                }
+
+                // Create a file path for the uploaded file
+                string filePath = Path.Combine(folderPath, fileModel.file.FileName);
+
+                // Save the file to the specified path
+                using (Stream stream = new FileStream(filePath, FileMode.Create))
+                {
+                    fileModel.file.CopyTo(stream);
+                }
+
+                return Ok(new { message = "Image saved successfully" });
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Console.WriteLine("Error: Access to the path is denied. " + ex.Message);
+                return StatusCode(500, "Access to the path is denied.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+                return StatusCode(500, "An error occurred while saving the image.");
+            }
+        }
+        [HttpGet("GetCollageList")]
+        public async Task<ActionResult<List<ListofcollagesDetails>>> GetCollageListData()
+        {
+            List<ListofcollagesDetails> data = new List<ListofcollagesDetails>();
+            data = _context.ListofcollagesDetails.ToList();
+            return Ok(data);
+        }
+        public class FileModel
+        {
+            public string FileName { get; set; }
+            public IFormFile file { get; set; }
+        }
+
+        [HttpGet("GetAllCandidateData")]
+        public async Task<ActionResult<List<CandidateInfoModel>>> GetAllCandidates()
+        {
+            // Step 1: Query each related entity separately
+            var candidates = _context.CandidateInfo.ToList();
+            var educationDetails = _context.EducationDetails.ToList();
+            var familyDetails = _context.FamilyDetails.ToList();
+            var professionalReferences = _context.ProfessionalRefernces.ToList();
+            var employmentDetails = _context.EmploymentDetails.ToList();
+
+            // Step 2: Combine the results in-memory using LINQ
+            var data = candidates.Select(c => new CandidateInfoModel
+            {
+                Id = c.ID,
+                Date = c.Date,
+                PositionAppliedFor = c.PositionAppliedFor,
+                ReferredBy = c.ReferredBy,
+                Name = c.Name,
+                DateOfBirth = c.DateOfBirth,
+                //CompleteAddress = c.CompleteAddress,
+                MobileNumber = c.MobileNumber,
+                EmailId = c.EmailId,
+                MartalStatus = c.MartalStatus,
+                Reasons = c.Reasons,
+                NoticePeriod = c.NoticePeriod,
+                ExpectedCTC = c.ExpectedCTC,
+                DeclarationDate = c.DeclarationDate,
+                DeclarationSignature = c.DeclarationSignature,
+                years = c.years,
+                month = c.month,
+                educationDetails = educationDetails.Where(ed => ed.Reference == c.ID).Select(ed => new EducationDetailsModel
+                {
+                    // Add mapping of properties here
+                    Degree = ed.Degree,
+                    Specialization = ed.Specialization,
+                    CollageOrUniversity = ed.CollageOrUniversity,
+                    YearOfPassing = ed.YearOfPassing,
+                    Percentage = ed.Percentage,
+                }).ToList(),
+                familyDetails = familyDetails.Where(fd => fd.Reference == c.ID).Select(fd => new FamilyDetailsModel
+                {
+                    // Add mapping of properties here
+                    Name = fd.Name,
+                    RelationShip = fd.RelationShip,
+                    DateOfBirth = fd.DateOfBirth,
+                    Occupation = fd.Occupation
+                }).ToList(),
+                ProfessionalReferenceData = professionalReferences.Where(pr => pr.Reference == c.ID).Select(pr => new ProfessionalReferencevalue
+                {
+                    Name = pr.Name,
+                    Organisation = pr.Organisation,
+                    Designation = pr.Designation,
+                    ContactNo = pr.ContactNo,
+                    EmailId = pr.EmailId
+                }).ToList(),
+                EmploymentDetailsData = employmentDetails.Where(em => em.Reference == c.ID).Select(em => new EmploymentDetailsvalue
+                {
+                    Years = em.Years,
+                    Months = em.Months,
+                    Organizations = em.Organizations,
+                    Designation = em.Designation,
+                    from = em.from,
+                    To = em.To,
+                    AnnualCTC = em.AnnualCTC,
+                    ReasonForLeaving = em.ReasonForLeaving
+                }).ToList()
+            }).ToList();
+
+
+            return Ok(data);
+        }
+
+
+        [HttpPost("dataentryforPositionList")]
+        public async Task<ActionResult<bool>> dataentry(string role, int Id)
+        {
+            PositionList data = new PositionList();
+            data.Id = _seqIdGenerator.Id;   
+            data.DesignationName = role;
+            data.roleId = Id;
+
+            _context.PositionList.Add(data);
+            _context.SaveChanges();
+            return Ok(data);
+        }
+        [HttpGet("GetAllPositions")]
+        public async Task<ActionResult<List<PositionList>>> getallpoitionsdata()
+        {
+            List<PositionList> data = new List<PositionList>();
+            data = _context.PositionList.ToList();
+            return Ok(data);
+        }
+
+        [HttpGet("Interviewerlist")]
+        public async Task<ActionResult<List<users>>> getAllUsers()
+        {
+            List<users> data = new List<users>();
+            data = _context.Users.ToList();
+            return Ok(data);
+        }
+        [HttpPost("DataEnterForDegreeSpecialization")]
+        public async Task<ActionResult<bool>> DataEntryValues(string degreename, int Id)
+        {
+            DegreeSpecialization data = new DegreeSpecialization();
+            data.Id = _seqIdGenerator.Id;
+            data.SpecializationName = degreename;
+            data.DegreeId = Id;
+
+            _context.DegreeSpecialization.Add(data);
+            _context.SaveChanges(); 
+
+            return Ok(data);
+        }
+        [HttpPost("DataEntrydegreeList")]
+        public async Task<ActionResult<bool>> DataentryDegreeList(string degreename,int id)
+        {
+            DegreeList data = new DegreeList();
+            data.Id = _seqIdGenerator.Id;
+            data.degree = degreename;
+            data.degreeId = id;
+            _context.DegreeList.Add(data);
+            _context.SaveChanges();
+            return Ok(true);
+        }
+        [HttpGet("DegreeList")]
+        public async Task<ActionResult<List<DegreeList>>> GetDegreeList()
+        {
+            List<DegreeList> data = new List<DegreeList>();
+            data = _context.DegreeList.ToList();
+            return data;
+        }
+
+        [HttpGet("DegreeSpecializationList")]
+        public async Task<ActionResult<List<DegreeSpecialization>>> GetDegreeSpecialization()
+        {
+            List<DegreeSpecialization> data = new List<DegreeSpecialization>();
+            data = _context.DegreeSpecialization.ToList();
+            return data;
+        }
+        [HttpGet("ListOfstate")]
+        public async Task<ActionResult<List<string >>> GetListOfStateAndCity()
+        {
+            var statelist = _context.StateCityList.Select( s => s.State).Distinct().ToList();
+
+            return statelist;
+        }
+        [HttpGet("ListofCitysandStates")]
+        public async Task<ActionResult<List<StateCityList>>> GetListofCitysandStates()
+        {
+            List<StateCityList> data = new List<StateCityList>();
+            data = _context.StateCityList.ToList();
+            return data;
+
+        }
+        [HttpPost("Skillsetdataentry")]
+        public async Task<ActionResult<bool>> dataentryskillset(string skillset)
+        {
+            SkillSet data = new SkillSet();
+            data.SkillName = skillset;
+
+            _context.SkillSet.Add(data);
+            _context.SaveChanges();
+            return Ok(true);
+        }
+        [HttpGet("Getskillset")]
+        public async Task<ActionResult<List<SkillSet>>> getSkillSetData()
+        {
+            List<SkillSet> data = new List<SkillSet>();
+            data = _context.SkillSet.ToList();
+            return Ok(data);    
         }
     }
 }

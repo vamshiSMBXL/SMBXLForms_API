@@ -66,19 +66,11 @@ namespace FormsApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AlignmentWithOurBussinesstwo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("AreaOfImprovement")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Attitudeone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Attitudetwo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -94,19 +86,11 @@ namespace FormsApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CommunicationSkilltwo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Date")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Innovativeone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Innovativetwo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -118,14 +102,6 @@ namespace FormsApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LeaderShiptwo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OverallEvaluation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PresentDate")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -134,15 +110,7 @@ namespace FormsApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Presentabilitytwo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ProblemSolvingSkillsone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProblemSolvingSkillstwo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -158,23 +126,11 @@ namespace FormsApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SimilarIndustryExperiencetwo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("TeamPlayerone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TeamPlayertwo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("TechnicalKnowledgeone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TechnicalKnowledgetwo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -192,6 +148,18 @@ namespace FormsApi.Migrations
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AddressLine1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AddressLine2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("Appoint")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CompleteAddress")
                         .IsRequired()
@@ -218,7 +186,9 @@ namespace FormsApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ExpectedCTC")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LinkedIn")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MartalStatus")
@@ -234,7 +204,9 @@ namespace FormsApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NoticePeriod")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pincode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PositionAppliedFor")
@@ -242,16 +214,74 @@ namespace FormsApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Reasons")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReferredBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Round")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Statues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("github")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("lastname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("month")
+                        .HasColumnType("int");
+
+                    b.Property<string>("skills")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("years")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
                     b.ToTable("CandidateInfo");
+                });
+
+            modelBuilder.Entity("FormsApi.data.DegreeList", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("degree")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("degreeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DegreeList");
+                });
+
+            modelBuilder.Entity("FormsApi.data.DegreeSpecialization", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("DegreeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SpecializationName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DegreeSpecialization");
                 });
 
             modelBuilder.Entity("FormsApi.data.EducationDetails", b =>
@@ -263,6 +293,9 @@ namespace FormsApi.Migrations
                     b.Property<string>("CollageOrUniversity")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CretedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Degree")
                         .IsRequired()
@@ -278,6 +311,9 @@ namespace FormsApi.Migrations
                     b.Property<string>("Specialization")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("YearOfPassing")
                         .IsRequired()
@@ -344,6 +380,9 @@ namespace FormsApi.Migrations
                     b.Property<string>("AnnualCTC")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CretedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Designation")
                         .HasColumnType("nvarchar(max)");
 
@@ -361,6 +400,9 @@ namespace FormsApi.Migrations
 
                     b.Property<string>("To")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Years")
                         .HasColumnType("nvarchar(max)");
@@ -417,6 +459,9 @@ namespace FormsApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CretedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("DateOfBirth")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -435,6 +480,9 @@ namespace FormsApi.Migrations
                     b.Property<string>("RelationShip")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -466,6 +514,32 @@ namespace FormsApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Forms");
+                });
+
+            modelBuilder.Entity("FormsApi.data.InterviewerAppointing", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ApplicantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("EmailId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Round")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InterviewerAppointing");
                 });
 
             modelBuilder.Entity("FormsApi.data.InterviewEvaluation", b =>
@@ -680,6 +754,57 @@ namespace FormsApi.Migrations
                     b.ToTable("JoiningForm");
                 });
 
+            modelBuilder.Entity("FormsApi.data.ListofcollagesDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CollegeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CollegeType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DistrictName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StateName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniversityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ListofcollagesDetails");
+                });
+
+            modelBuilder.Entity("FormsApi.data.PositionList", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DesignationName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("roleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PositionList");
+                });
+
             modelBuilder.Entity("FormsApi.data.ProfessionalRefernces", b =>
                 {
                     b.Property<Guid>("Id")
@@ -689,6 +814,9 @@ namespace FormsApi.Migrations
                     b.Property<string>("ContactNo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CretedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Designation")
                         .IsRequired()
@@ -708,6 +836,9 @@ namespace FormsApi.Migrations
 
                     b.Property<Guid?>("Reference")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -743,6 +874,66 @@ namespace FormsApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Questions");
+                });
+
+            modelBuilder.Entity("FormsApi.data.SkillSet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("SkillName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SkillSet");
+                });
+
+            modelBuilder.Entity("FormsApi.data.StateCityList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("NameOfCity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StateCityList");
+                });
+
+            modelBuilder.Entity("FormsApi.data.users", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EmailId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

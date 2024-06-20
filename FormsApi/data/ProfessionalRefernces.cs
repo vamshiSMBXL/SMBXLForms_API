@@ -9,5 +9,7 @@
         public string ContactNo { get; set; }
         public string EmailId { get; set; }
         public Guid? Reference { get; set; }
+        public DateTime CretedDate { get; set; }
+        public DateTime? Updated { get; set; }
     }
 }

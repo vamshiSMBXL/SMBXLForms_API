@@ -9,5 +9,7 @@
         public string YearOfPassing { get; set; }
         public string Percentage { get; set; }
         public Guid? Reference { get; set; }
+        public DateTime CretedDate { get; set; } = DateTime.Now;
+        public DateTime? Updated { get; set; }
     }
 }

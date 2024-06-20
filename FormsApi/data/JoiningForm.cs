@@ -37,5 +37,6 @@
         public string DeclarationPlace { get; set; }
         public string DeclarationSignature { get; set; }
 
+
     }
 }

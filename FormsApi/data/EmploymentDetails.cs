@@ -12,5 +12,7 @@
         public string? AnnualCTC { get; set; }
         public string? ReasonForLeaving { get; set; }
         public Guid? Reference { get; set; }
+        public DateTime CretedDate { get; set; } = DateTime.Now;
+        public DateTime? Updated { get; set; }
     }
 }

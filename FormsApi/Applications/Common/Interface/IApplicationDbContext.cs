@@ -19,6 +19,16 @@ namespace FormsApi.Applications.Common.Interface
         DbSet<EmployeeAnswer> EmployeeAnswer { get; set; }
 
         DbSet<EmploymentDetails> EmploymentDetails { get; set; }
+
+        DbSet<ListofcollagesDetails> ListofcollagesDetails { get; set; }
+
+        DbSet<PositionList> PositionList { get; set; }
+        DbSet<DegreeList> DegreeList { get; set; }
+
+        DbSet<DegreeSpecialization> DegreeSpecialization { get; set; }
+        DbSet<StateCityList> StateCityList { get; set; }
+        DbSet<SkillSet> SkillSet { get; set; }
+        public DbSet<users> Users { get; set; }
         int SaveChanges();
     }
 }
